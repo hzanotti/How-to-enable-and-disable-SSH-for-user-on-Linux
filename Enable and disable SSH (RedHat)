@@ -1,0 +1,20 @@
+Start by opening a terminal and opening the SSH server configuration file. You can use nano or your preferred text editor for this, as long as you open the file with root permissions
+# vim /etc/ssh/sshd_config
+
+At the end of this file, use the directive AllowUsers to specify which user accounts you want to enable SSH access for. List all your users separated by a space
+AllowUsers username1 username2 username3
+
+Similarly, use the DenyUsers directive to specify which user accounts you want to deny SSH access for. List all your users separated by a space
+DenyUsers username1 username2 username3
+
+You can also allow or deny access to an entire user group with the AllowGroups and DenyGroups directives, respectively. This will allow or deny SSH access to any user that exists in those groups
+AllowGroups administrators (I'm using administrator group just as example yours can be other name)
+DenyGroups accountants (I'm using accountants group just as example yours can be other name)
+
+To enable or disable SSH access for the root user account, you need to use a special directive PermitRootLogin. Set it to yes or no, depending on which setting you prefer
+**Note that enabling SSH access for the root account is generally considered a bad security practice
+PermitRootLogin no
+PermitRootLogin yes
+
+After you are done making your changes, you can exit the file and save it. Then, for the changes to take effect, the SSH service will have to be restarted (RedHat)
+# systemctl restart sshd
